@@ -94,6 +94,5 @@ $cfg->save();
 		$this->getLogger()->info("The /reward plugin has been deactivated. Bye!");
 	}
 }
-//This Plugin was written by Wertzui123 and you're not allowed to modify, copy or rewrite it!
-//To adjust it to you're server, just use the config.yml in you're plugin_data/Rewards folder.
-//© 2019 Wertzui123
+// This Plugin was written by Wertzui123 and you're not allowed to copy or clone it!
+// © 2019 Wertzui123
