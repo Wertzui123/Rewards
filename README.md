@@ -2,9 +2,9 @@
 A reward plugin for pocketmine
 
 <b>Commands:</b>
-/reward
+<br>/reward
 
 <b>Permissions:</b>
-reward.claim
+<br>reward.claim
 
 Have fun!
