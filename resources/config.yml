@@ -1,0 +1,37 @@
+---
+# This Plugin was written by Wertzui123 and you're not allowed to copy or clone it!
+# © 2019 Wertzui123
+#
+# This is the message wich appears when you don't have the permission to use /reward
+no_permission: "§cYou don't have the permission to use /reward"
+
+# This is the messages wich appears when you didn't type "/reward"
+usage: "§cUsage: /reward"
+
+# This is the message wich appears when you try to do "/reward" trough the console
+run_ingame: "§cPlease run this command in-game"
+
+# This is the message wich appears when you have to wait until you can claim you're reward again
+already_got_reward: "§cYou already got you're reward today! You have to wait until §e{until}§c!"
+
+# This is the message wich appears when you got you're reward
+got_reward_succes: "§aYou succesfully got you're reward!"
+
+# The time format
+# d = day
+# m = month
+# Y = Year
+# H = Hour
+# i = minute
+time_format: "d.m.Y H:i"
+
+# The time how long the players have to wait befor claiming their rewards again
+# Please use minutes
+# Example: "2222 minutes"
+# 1440 minutes is one day
+wait_time: "1440 minutes"
+
+# This is the command wich will be executet if the players get their rewards
+# For now you can only use 1 command
+command_wich_will_be_executed: "give {player} diamond 1 {display:{Name:"§r§l§4Daily reward"}}"
+...
