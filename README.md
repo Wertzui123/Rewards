@@ -6,5 +6,6 @@ A reward plugin for pocketmine
 
 <b>Permissions:</b>
 <br>reward.claim
-
-Have fun!
+<br
+<br>
+<h2>Have fun!</h2>
