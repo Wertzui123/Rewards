@@ -9,5 +9,5 @@ A reward plugin for pocketmine
 <br>
 <br><b>Licens</b>
 <br><code>This Plugin was written by Wertzui123 and you're not allowed to copy or clone it!
-# © 2019 Wertzui123</code>
+© 2019 Wertzui123</code>
 <h2>Have fun!</h2>
