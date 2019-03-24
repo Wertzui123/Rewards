@@ -20,8 +20,8 @@ use pocketmine\event\PlayerJoinEvent;
 
 class Main extends PluginBase implements Listener{
 
-	public function onEnable() : void{
-		$this->getLogger()->info("Hello, I am the /reward plugin. Have fun!");
+	public function onEnable() : void{ 
+		//$this->getLogger()->info("Hello, I am the /reward plugin. Have fun!");
 	    $this->saveResource("config.yml");
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 	}
@@ -77,7 +77,7 @@ $cfg->save();
 	}
 
 	public function onDisable() : void{
-		$this->getLogger()->info("The /reward plugin has been deactivated. Bye!");
+		//$this->getLogger()->info("The /reward plugin has been deactivated. Bye!");
 	}
 }
 // This Plugin was written by Wertzui123 and you're not allowed to copy or clone it!
