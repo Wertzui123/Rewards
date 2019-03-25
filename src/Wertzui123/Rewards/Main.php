@@ -16,7 +16,7 @@ use pocketmine\utils\TextFormat;
 use pocketmine\command\ConsoleCommandSender;
 use pocketmine\level\Level;
 use pocketmine\math\Vector3;
-use pocketmine\event\PlayerJoinEvent;
+use pocketmine\event\player\PlayerJoinEvent;
 
 class Main extends PluginBase implements Listener{
 
