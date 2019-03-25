@@ -80,5 +80,5 @@ $cfg->save();
 		//$this->getLogger()->info("The /reward plugin has been deactivated. Bye!");
 	}
 }
-// This Plugin was written by Wertzui123 and you're not allowed to copy or clone it!
+// This Plugin was written by Wertzui123 and you're not allowed to copy or clone it into you're plugin!
 // © 2019 Wertzui123
