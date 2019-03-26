@@ -7,7 +7,7 @@
 <br>/reward
 
 <b>Permissions:</b>
-<br>reward.claim
+<br>rewards.claim
 <br>
 <br><b>Licens</b>
 <br><code>This Plugin was written by Wertzui123 and you're not allowed to copy or clone it into your plugin!</code>
