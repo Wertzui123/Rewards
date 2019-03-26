@@ -63,7 +63,7 @@ $cfg->save();
 			$sender->sendMessage($runingame);
 			return true;
 		}
-		if($sender->hasPermission("rewards.command")) {
+		if($sender->hasPermission("rewards.claim")) {
 				if(!empty($args[0])){
 					$sender->sendMessage("$usage");
 				} else {
