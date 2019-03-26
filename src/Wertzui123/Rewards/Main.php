@@ -21,12 +21,12 @@ use pocketmine\event\player\PlayerJoinEvent;
 class Main extends PluginBase implements Listener{
 
 	public function onEnable() : void{ 
-		//$this->getLogger()->info("Hello, I am the /reward plugin. Have fun!");
 	    $this->saveResource("config.yml");
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 	}
 	
-	public function onJoin(PlayerJoinEvent $event){
+	
+		public function onJoin(PlayerJoinEvent $event){
 if(!file_exists($this->getDataFolder() . $event->getPlayer()->getName() . ".yml")){
 $cfg = new Config($this->getDataFolder() . $event->getPlayer()->getName() . ".yml", Config::YAML);
 $player = $event->getPlayer();
@@ -36,6 +36,7 @@ $cfg->set("until", $now);
 $cfg->save();
 }
 	}
+	
 	
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
 		switch($command->getName()){
@@ -57,27 +58,36 @@ $cfg->save();
 		$waittime = $config->get("wait_time");
 		$now = $today->format($timeformat);
 		$until2 = date ($timeformat, strtotime ($now ."+" . $waittime));
-		
-		if(!$sender instanceof Player){
-		$sender->sendMessage($runingame);
-		}else{
-			
+
+		if(!$sender instanceof Player) {
+			$sender->sendMessage($runingame);
+			return true;
+		}
+		if($sender->hasPermission("rewards.command")) {
+				if(!empty($args[0])){
+					$sender->sendMessage("$usage");
+				} else {
+		if($sender === $now) {
+		} else {
         if($now >= $until){
 		$sender->sendMessage($gotrewardsucces);
 		$rewardcommand = str_replace("{player}", $name, $rewardcommand);
 		$this->getServer()->dispatchCommand(new ConsoleCommandSender(), $rewardcommand); 
 		$cfg->set("until", $until2);
 		$cfg->save();
-	    }else{
-			$sender->sendMessage($alreadygotreward);
+	 }else{
+		 $sender->sendMessage("$alreadygotreward");
+	 }
+      }
+      }
+      } else{
+			$sender->sendMessage($nopermission);
+     }
+     return true;
 		}
-		}
-		return false;
-		}
-	}
-
+  }
+  
 	public function onDisable() : void{
-		//$this->getLogger()->info("The /reward plugin has been deactivated. Bye!");
 	}
 }
 // This Plugin was written by Wertzui123 and you're not allowed to copy or clone it into you're plugin!
