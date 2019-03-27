@@ -1,8 +1,8 @@
 ---
-# This Plugin was written by Wertzui123 and you're not allowed to copy or clone it into you're plugin!
+# This Plugin was written by Wertzui123 and you're not allowed to copy or clone it!
 # You also musn't change the author or the license.
 # © 2019 Wertzui123
-#
+
 # This is the message wich appears when you don't have the permission to use /reward
 no_permission: "§cYou don't have the permission to use /reward"
 
@@ -35,6 +35,6 @@ wait_time: "1440 minutes"
 # This is the command wich will be executed if the players get their rewards
 # The command will be executed trought the console
 # For now you can only use 1 command
-# {player} for the player
+# {player} is the player who used /reward
 command_wich_will_be_executed: "give {player} diamond 1 {display:{Name:"§r§l§4Daily reward"}}"
 ...
