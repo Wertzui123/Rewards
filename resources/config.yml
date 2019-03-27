@@ -35,6 +35,6 @@ wait_time: "1440 minutes"
 # This is the command wich will be executed if the players get their rewards
 # The command will be executed trought the console
 # For now you can only use 1 command
-# IMPORTANT: Use \" for "
+# IMPORTANT: Use \" instead of "
 command_wich_will_be_executed: "give {player} diamond 1 {display:{Name:\"§r§l§4Daily reward\"}}"
 ...
