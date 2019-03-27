@@ -91,4 +91,5 @@ $cfg->save();
 	}
 }
 // This Plugin was written by Wertzui123 and you're not allowed to copy or clone it into you're plugin!
+// You also musn't change the author or the license.
 // © 2019 Wertzui123
