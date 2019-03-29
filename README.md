@@ -10,7 +10,6 @@
 <br>rewards.claim
 <br>
 <br><b>License</b>
-<br><code>This Plugin was written by Wertzui123 and you're not allowed to copy or clone it into your plugin!</code>
-<br><code>You also musn't change the author or the license.</code>
+https://choosealicense.com/licenses/gpl-3.0/
 <br><code>© 2019 Wertzui123</code>
 <h2>Have fun!</h2>
