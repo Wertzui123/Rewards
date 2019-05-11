@@ -48,9 +48,6 @@ parent::__construct($c["command"] ?? "reward", $c["description"] ?? "Claim your 
             return true;
         }
         if($sender->hasPermission("rewards.claim")) {
-            $sender->sendMessage("$now");
-            $sender->sendMessage("$until");
-            $sender->sendMessage("$until2");
                     if($now >= $until or $sender->hasPermission("rewards.waiting.bypass")){
                         $sender->sendMessage($gotrewardsucces);
                         foreach($config->get("commands") as $command) {
