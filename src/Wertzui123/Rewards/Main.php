@@ -19,7 +19,7 @@ class Main extends PluginBase implements Listener{
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->configversion = 2.0;
         $this->ConfigUpdater();
-        $this->getServer()->getCommandMap()->register("reward", new reward($this));
+        $this->getServer()->getCommandMap()->register("Rewards", new reward($this));
 	}
 	
 	
