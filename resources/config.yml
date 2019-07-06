@@ -1,33 +1,18 @@
 ---
-# This Plugin was written by Wertzui123 and you're not allowed to copy or clone it into you're plugin!
-# You also musn't change the author or the license.
-# © 2019 Wertzui123
-#
-
-
 #GENEREL DATA
 
 
 #Don't edit the config version!
-config_version: "2.0"
-
-# The time format
-# d = day
-# m = month
-# Y = Year
-# H = Hour
-# i = minute
-time_format: "m.d.Y H:i"
+config_version: 3.0
 
 # The time how long the players have to wait befor claiming their rewards again
 # Please use minutes
-# Example: "2222 minutes"
 # 1440 minutes is one day
-wait_time: "1440 minutes"
+wait_time: 1440
 
 # These are the commands wich will be executed if the players get their rewards
 # The commands will be executed trought the console
-# {player} is the player who claimed his reward
+# {player} is the player who claimed his reward, {asplayer} to run the command as the sender
 # IMPORTANT: Use \" instead of normal quotess
 commands:
  - msg {player} You got your reward!
@@ -52,8 +37,8 @@ no_permission: "§cYou don't have the permission to use /reward"
 run_ingame: "§cPlease run this command in-game"
 
 # This is the message wich appears when you have to wait until you can claim you're reward again
-already_got_reward: "§cYou already got you're reward today! You have to wait until §e{until}§c!"
+already_got_reward: "§cYou already got your reward today! You have to wait §e{hours} hours, {minutes} minutes, and {seconds} seconds§c!"
 
 # This is the message wich appears when you got you're reward
-got_reward_succes: "§aYou succesfully got you're reward!"
+got_reward_succes: "§aYou succesfully got your reward!"
 ...
