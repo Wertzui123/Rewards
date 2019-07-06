@@ -8,8 +8,6 @@ use pocketmine\command\CommandSender;
 use pocketmine\command\ConsoleCommandSender;
 use pocketmine\command\Command;
 use pocketmine\utils\Config;
-use pocketmine\level\Position;
-use pocketmine\command\utils\InvalidCommandSyntaxException;
 use pocketmine\Player;
 
 class reward extends Command
@@ -31,36 +29,39 @@ parent::__construct($c["command"] ?? "reward", $c["description"] ?? "Claim your 
         $cfg = new Config($this->plugin->getDataFolder()."players.yml", Config::YAML);
         $config = new Config($this->plugin->getDataFolder() . "config.yml", Config::YAML);
         $until = $cfg->get($name);
-        $today = new \DateTime("now");
+        $today = time();
         $nopermission = $config->get("no_permission");
-        $usage = $config->get("usage");
         $runingame = $config->get("run_ingame");
-        $alreadygotreward = $config->get("already_got_reward");
-        $alreadygotreward = str_replace("{until}", $until, $alreadygotreward);
         $gotrewardsucces = $config->get("got_reward_succes");
-        $timeformat = $config->get("time_format");
-        $waittime = $config->get("wait_time");
-        $now = $today->format($timeformat);
-        $until2 = date ($timeformat, strtotime ($now . "+" . $waittime));
+        $minutes = $config->get("wait_time");
+        $waituntil = $today + $minutes * 60;
 
         if(!$sender instanceof Player) {
             $sender->sendMessage($runingame);
             return true;
         }
         if($sender->hasPermission("rewards.claim")) {
-                    if($now >= $until or $sender->hasPermission("rewards.waiting.bypass")){
+                    if(($today >= $until) || $sender->hasPermission("rewards.waiting.bypass")){
                         $sender->sendMessage($gotrewardsucces);
                         foreach($config->get("commands") as $command) {
-                            $rewardcommand = str_replace("{player}", $name, $command);
-                            $this->plugin->getServer()->dispatchCommand(new ConsoleCommandSender(), $rewardcommand);
+                            $rewardcommand = str_replace(["{player}", "{asplayer}"], [$name, ''], $command);
+                            $asplayer = in_array("{asplayer}", explode(" ", $command));
+                            if($asplayer == true){
+                                $this->plugin->getServer()->dispatchCommand($sender, $rewardcommand);
+                            }else{
+                                $this->plugin->getServer()->dispatchCommand(new ConsoleCommandSender(), $rewardcommand);
+                            }
                         }
-                        $cfg->set($name, $until2);
-                        $cfg->save();
+                        if(!$sender->hasPermission("rewards.waiting.bypass")){
+                            $cfg->set($name, $waituntil);
+                            $cfg->save();
+                        }
                     }else {
-                        $sender->sendMessage("$alreadygotreward");
+                        $sender->sendMessage($this->plugin->ConvertSeconds($until - $today));
                     }
         } else{
             $sender->sendMessage($nopermission);
         }
+        return false;
     }
     }
