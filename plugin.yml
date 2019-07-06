@@ -1,19 +1,11 @@
 name: Rewards
-
 main: Wertzui123\Rewards\Main
-
-version: 2.0
-
+version: 3.0
 api: 3.0.0
-
 load: POSTWORLD
-
 author: Wertzui123
-
 description: Let you're players get cooldowned rewards
-
 website: https://github.com/Wertzui123/Rewards/
-
 permissions:
   rewards:
     default: op
@@ -22,5 +14,3 @@ permissions:
       rewards.claim:
         default: true
         description: Allows you to claim rewards
-# This Plugin was written by Wertzui123 and you're not allowed to copy or clone it!
-# © 2019 Wertzui123
