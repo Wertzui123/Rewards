@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Wertzui123\Rewards;
 
+use pocketmine\event\block\SignChangeEvent;
+use pocketmine\math\Vector3;
 use pocketmine\Player;
 use pocketmine\event\Listener;
 use pocketmine\plugin\PluginBase;
@@ -12,14 +14,13 @@ use pocketmine\event\player\PlayerJoinEvent;
 
 class Main extends PluginBase implements Listener{
 
-    public $configversion;
+    public $configversion = 3.0;
 
 	public function onEnable() : void{ 
 	    $this->saveResource("config.yml");
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
-        $this->configversion = 2.0;
         $this->ConfigUpdater();
-        $this->getServer()->getCommandMap()->register("Rewards", new reward($this));
+        $this->getServer()->getCommandMap()->register("reward", new reward($this));
 	}
 	
 	
@@ -28,10 +29,7 @@ class Main extends PluginBase implements Listener{
             if (!$this->isjoinedbefor($event->getPlayer())) {
                 $cfg = new Config($this->getDataFolder() . "players.yml", Config::YAML);
                 $player = $event->getPlayer();
-                $today = new \DateTime("now");
-                $f = $this->ConfigArray()["time_format"];
-                $now = $today->format($f);
-                $cfg->set($player->getName(), $now);
+                $cfg->set($player->getName(), 0);
                 $cfg->save();
             }
         }
@@ -39,7 +37,7 @@ class Main extends PluginBase implements Listener{
 	public function isjoinedbefor(Player $player)
     {
         $jc = $this->getJoins();
-        if (!$jc->get($player->getName()) == true) {
+        if ($jc->get($player->getName()) !== true) {
             $jc->set($player->getName(), true);
             $jc->save();
             return false;
@@ -56,8 +54,8 @@ class Main extends PluginBase implements Listener{
     public function ConfigUpdater()
     {
         if (file_exists($this->getDataFolder() . "config.yml")) {
-		$c = $this->ConfigArray();
-        $cv = $c["config_version"] ?? 0;
+            $c = $this->ConfigArray();
+            $cv = $c["config_version"] ?? 0;
             if ($cv != $this->configversion) {
                 $this->getLogger()->info("§cYour Config isn't the latest. §6We renamed your old config to §bconfig-" . $cv . ".yml §6and created a new config.yml. §aHave fun!");
                 rename($this->getDataFolder() . "config.yml", "config-" . $cv . ".yml");
@@ -65,7 +63,6 @@ class Main extends PluginBase implements Listener{
             }
         } else {
             $this->saveResource("config.yml");
-
         }
     }
 
@@ -74,6 +71,18 @@ class Main extends PluginBase implements Listener{
         $c = new Config($this->getDataFolder() . "config.yml");
         $c = $c->getAll();
         return $c;
+    }
+
+    public function ConvertSeconds(int $seconds){
+        $hours = floor($seconds / 3600);
+        $minutes = floor(($seconds / 60) % 60);
+        $seconds = $seconds % 60;
+        $config = new Config($this->getDataFolder()."config.yml", 2);
+        $agr = $config->get("already_got_reward");
+        $agr = str_replace("{hours}", $hours, $agr);
+        $agr = str_replace("{minutes}", $minutes, $agr);
+        $agr = str_replace("{seconds}", $seconds, $agr);
+        return $agr;
     }
 
 }
