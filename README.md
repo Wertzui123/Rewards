@@ -8,7 +8,7 @@ The .phar can be found on <a href="https://poggit.pmmp.io/p/Rewards">poggit.</a>
 # Permissions
 rewards.claim | Let you claim your reward with /reward **Default: default**
 
-cb-heads.waiting.bypass | Allows you to claim a head without waiting befor. **Default: op**
+rewards.waiting.bypass | Allows you to bypass the waiting periode. **Default: op**
 
 # Features
   **This plugin has some nice features**
