@@ -14,6 +14,6 @@ permissions:
       rewards.claim:
         default: true
         description: Allows you to claim rewards
-      rewards.waiting.bypass
+      rewards.waiting.bypass:
         default: op
         description: Allows you to bypass the waiting periode
