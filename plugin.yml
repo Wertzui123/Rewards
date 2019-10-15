@@ -13,7 +13,7 @@ permissions:
     children:
       rewards.claim:
         default: true
-        description: Allows you to claim rewards
+        description: §e§lClaim your daily reward§c!
       rewards.waiting.bypass:
         default: op
         description: Allows you to bypass the waiting periode
