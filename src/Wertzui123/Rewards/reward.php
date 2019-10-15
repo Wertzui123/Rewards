@@ -18,7 +18,7 @@ class reward extends Command
 public function __construct(Main $plugin)
 {
     $c = $plugin->ConfigArray();
-parent::__construct($c["command"] ?? "reward", $c["description"] ?? "Claim your reward", $c["usage"] ?? "reward", $c["aliases"] ?? ["claimreward"]);
+parent::__construct($c["command"] ?? "reward", $c["description"] ?? "§e§lClaim your daily reward§c!", $c["usage"] ?? "reward", $c["aliases"] ?? ["claimreward"]);
     $this->setPermission("rewards.claim");
     $this->plugin = $plugin;
     }
