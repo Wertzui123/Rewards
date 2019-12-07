@@ -40,8 +40,8 @@ parent::__construct($c["command"] ?? "reward", $c["description"] ?? "Claim your 
             $sender->sendMessage($runingame);
             return true;
         }
-        if($sender->hasPermission("rewards.claim")) {
-                    if(($today >= $until) || $sender->hasPermission("rewards.waiting.bypass")){
+        if($sender->hasPermission("viprewards.claim")) {
+                    if(($today >= $until) || $sender->hasPermission("viprewards.waiting.bypass")){
                         $sender->sendMessage($gotrewardsucces);
                         foreach($config->get("commands") as $command) {
                             $rewardcommand = str_replace(["{player}", "{asplayer}"], [$name, ''], $command);
@@ -52,7 +52,7 @@ parent::__construct($c["command"] ?? "reward", $c["description"] ?? "Claim your 
                                 $this->plugin->getServer()->dispatchCommand(new ConsoleCommandSender(), $rewardcommand);
                             }
                         }
-                        if(!$sender->hasPermission("rewards.waiting.bypass")){
+                        if(!$sender->hasPermission("viprewards.waiting.bypass")){
                             $cfg->set($name, $waituntil);
                             $cfg->save();
                         }
