@@ -11,9 +11,9 @@ permissions:
     default: op
     description: Does nothing special
     children:
-      rewards.claim:
+      viprewards.claim:
         default: true
         description: Allows you to claim rewards
-      rewards.waiting.bypass:
+      viprewards.waiting.bypass:
         default: op
         description: Allows you to bypass the waiting periode
