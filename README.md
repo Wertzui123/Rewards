@@ -1,4 +1,5 @@
 # Rewards
+**This branch only has other permissions than master, because you may want to use Rewards 2 times on your server, to make different reward groups.**
 <a href="https://poggit.pmmp.io/p/Rewards"><img src="https://poggit.pmmp.io/shield.state/Rewards"></a>
 <a href="https://poggit.pmmp.io/p/Rewards"><img src="https://poggit.pmmp.io/shield.api/Rewards"></a>
 A (daily) reward plugin for pmmp servers.
