@@ -19,7 +19,7 @@ public function __construct(Main $plugin)
 {
     $c = $plugin->ConfigArray();
 parent::__construct($c["command"] ?? "reward", $c["description"] ?? "Claim your reward", $c["usage"] ?? "reward", $c["aliases"] ?? ["claimreward"]);
-    $this->setPermission("rewards.claim");
+    $this->setPermission("viprewards.claim");
     $this->plugin = $plugin;
     }
 
@@ -40,7 +40,7 @@ parent::__construct($c["command"] ?? "reward", $c["description"] ?? "Claim your 
             $sender->sendMessage($runingame);
             return true;
         }
-        if($sender->hasPermission("viprewards.claim")) {
+        if($sender->hasPermission($this->getPermission())) {
                     if(($today >= $until) || $sender->hasPermission("viprewards.waiting.bypass")){
                         $sender->sendMessage($gotrewardsucces);
                         foreach($config->get("commands") as $command) {
