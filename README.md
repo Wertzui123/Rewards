@@ -12,7 +12,7 @@ rewards.claim | Permission for /reward
 <br>Default: op
 ## Other
 rewards.waiting.bypass | Allows you to bypass the waiting periode
-<be>Default: op
+<br>Default: op
 
 # Features
   Main Rewards features:
