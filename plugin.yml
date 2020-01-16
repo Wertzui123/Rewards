@@ -4,15 +4,15 @@ version: 3.0
 api: 3.0.0
 load: POSTWORLD
 author: Wertzui123
-description: Let you're players get cooldowned rewards
-website: https://github.com/Wertzui123/Rewards/
+description: Let your players get cooldowned rewards
+website: https://github.com/Wertzui123/Rewards
 permissions:
   rewards:
     default: op
-    description: Does nothing special
+    description: Main rewards permission
     children:
       rewards.claim:
-        default: true
+        default: op
         description: Allows you to claim rewards
       rewards.waiting.bypass:
         default: op
