@@ -1,19 +1,19 @@
 name: Rewards
 main: Wertzui123\Rewards\Main
-version: 3.0
+version: "4.0"
 api: 3.0.0
 load: POSTWORLD
 author: Wertzui123
 description: Let your players get cooldowned rewards
-website: https://github.com/Wertzui123/Rewards
+website: https://github.com/Wertzui123/Rewards/
 permissions:
   rewards:
     default: op
-    description: Main rewards permission
+    description: Base permission for Rewards
     children:
-      rewards.claim:
-        default: op
-        description: Allows you to claim rewards
+      rewards.cmd.reward:
+        default: true
+        description: Permission to use /reward
       rewards.waiting.bypass:
         default: op
-        description: Allows you to bypass the waiting periode
+        description: Permission to bypass the waiting time

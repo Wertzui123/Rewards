@@ -4,88 +4,131 @@ declare(strict_types=1);
 
 namespace Wertzui123\Rewards;
 
-use pocketmine\event\block\SignChangeEvent;
-use pocketmine\math\Vector3;
+use pocketmine\permission\Permission;
+use pocketmine\permission\PermissionManager;
 use pocketmine\Player;
-use pocketmine\event\Listener;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
-use pocketmine\event\player\PlayerJoinEvent;
+use Wertzui123\Rewards\commands\reward;
 
-class Main extends PluginBase implements Listener{
+class Main extends PluginBase{
 
-    public $configversion = 3.0;
+    /** @var float */
+    const CONFIG_VERSION = 4.0;
 
-	public function onEnable() : void{ 
-	    $this->saveResource("config.yml");
-		$this->getServer()->getPluginManager()->registerEvents($this, $this);
+    /** @var Config */
+    public $messagesFile;
+    /** @var Config */
+    public $playerDataFile;
+
+	public function onEnable() : void{
         $this->ConfigUpdater();
+        $this->messagesFile = new Config($this->getDataFolder() . 'messages.yml', Config::YAML);
+        $this->playerDataFile = $this->loadDataFile();
+        foreach ($this->getConfig()->get('permission_groups') as $group){
+            PermissionManager::getInstance()->addPermission(new Permission("rewards.permissions." . $group, "Rewards permission group", Permission::DEFAULT_FALSE));
+        }
+        $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
         $this->getServer()->getCommandMap()->register("Rewards", new reward($this));
 	}
-	
-	
-		public function onJoin(PlayerJoinEvent $event)
-        {
-            if (!$this->isjoinedbefor($event->getPlayer())) {
-                $cfg = new Config($this->getDataFolder() . "players.yml", Config::YAML);
-                $player = $event->getPlayer();
-                $cfg->set($player->getName(), 0);
-                $cfg->save();
-            }
-        }
-  
-	public function isjoinedbefor(Player $player)
-    {
-        $jc = $this->getJoins();
-        if ($jc->get($player->getName()) !== true) {
-            $jc->set($player->getName(), true);
-            $jc->save();
-            return false;
-        }else{
-            return true;
+
+    /**
+     * Loads the user data file
+     * @return Config|null
+     */
+	private function loadDataFile(){
+	    switch (strtolower($this->getConfig()->get("data_storage", "JSON"))){
+            case "json":
+                return new Config($this->getDataFolder() . 'playerData.json', Config::JSON);
+            case "yaml":
+                return new Config($this->getDataFolder() . 'playerData.yml', Config::YAML);
+            default:
+                $this->getLogger()->warning("Invalid data_storage value. Using JSON.");
+                return new Config($this->getDataFolder() . 'playerData.json', Config::JSON);
         }
     }
 
-    public function getJoins(){
-	    $f = new Config($this->getDataFolder()."joins.yml", Config::YAML);
-	    return $f;
+    /**
+     * Returns a message from the messages file
+     * @param string $key
+     * @param array $replace [optional]
+     * @return string
+     */
+    public function getMessage($key, $replace = []){
+	    return str_replace(array_keys($replace), $replace, $this->messagesFile->getNested($key));
     }
 
-    public function ConfigUpdater()
-    {
-        if (file_exists($this->getDataFolder() . "config.yml")) {
-            $c = $this->ConfigArray();
-            $cv = $c["config_version"] ?? 0;
-            if ($cv != $this->configversion) {
-                $this->getLogger()->info("§cYour Config isn't the latest. §6We renamed your old config to §bconfig-" . $cv . ".yml §6and created a new config.yml. §aHave fun!");
-                rename($this->getDataFolder() . "config.yml", "config-" . $cv . ".yml");
-                $this->saveResource("config.yml");
+    /**
+     * @api
+     * Returns how long a player still has to wait until they can claim their rewards again
+     * @param Player $player
+     * @return int
+     */
+    public function getWaitTime(Player $player){
+        return $this->playerDataFile->get(strtolower($player->getName()), ["last" => time(), "streak" => 0])["last"] + $this->getConfig()->getNested('wait_time.' . $this->getPermissionGroup($player));
+    }
+
+    /**
+     * @api
+     * Returns the given players reward streak
+     * @param Player $player
+     * @return int
+     */
+    public function getStreak(Player $player){
+        return $this->playerDataFile->get(strtolower($player->getName()), ["last" => time(), "streak" => 0])["streak"];
+    }
+
+    /**
+     * @api
+     * Returns the permission group for a player
+     * @param Player $player
+     * @return string
+     */
+    public function getPermissionGroup(Player $player){
+        foreach ($this->getConfig()->get('permission_groups') as $group){
+            if($player->hasPermission("rewards.permissions." . $group)){
+                return $group;
             }
-        } else {
+        }
+        return "default";
+    }
+
+    /**
+     * Checks whether the config version is the latest and updates it if it isn't
+     */
+    private function ConfigUpdater()
+    {
+        if (!file_exists($this->getDataFolder() . "config.yml")) {
+            $this->saveResource('config.yml');
+            $this->saveResource('messages.yml');
+            return;
+        }
+        if ($this->getConfig()->get('config-version') !== self::CONFIG_VERSION) {
+            $config_version = $this->getConfig()->get('config-version');
+            $this->getLogger()->info("Your Config isn't the latest. Rewards renamed your old config to §bconfig-" . $config_version . ".yml §6and created a new config. Have fun!");
+            rename($this->getDataFolder() . "config.yml", "config-" . $config_version . ".yml");
+            rename($this->getDataFolder() . "messages.yml", "config-" . $config_version . ".yml");
             $this->saveResource("config.yml");
+            $this->saveResource("messages.yml");
         }
     }
 
-    public function ConfigArray()
-    {
-        $c = new Config($this->getDataFolder() . "config.yml");
-        $c = $c->getAll();
-        return $c;
-    }
-
-    public function ConvertSeconds(int $seconds){
+    /**
+     * Converts seconds to hours, minutes and seconds
+     * @param int $seconds
+     * @param string $message
+     * @return string
+     */
+    public function ConvertSeconds($seconds, $message){
         $hours = floor($seconds / 3600);
         $minutes = floor(($seconds / 60) % 60);
         $seconds = $seconds % 60;
-        $config = new Config($this->getDataFolder()."config.yml", 2);
-        $agr = $config->get("already_got_reward");
-        $agr = str_replace("{hours}", $hours, $agr);
-        $agr = str_replace("{minutes}", $minutes, $agr);
-        $agr = str_replace("{seconds}", $seconds, $agr);
-        return $agr;
+        return str_replace(["{hours}", "{minutes}", "{seconds}"], [$hours, $minutes, $seconds], $message);
+    }
+
+    public function onDisable()
+    {
+        $this->playerDataFile->save();
     }
 
 }
-// This Plugin was written by Wertzui123 and you're not allowed to copy or clone it into you're plugin!
-// You also musn't change the author or the license.
-// © 2019 Wertzui123

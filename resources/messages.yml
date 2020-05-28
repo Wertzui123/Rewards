@@ -1,0 +1,9 @@
+---
+cmd:
+  reward:
+    runIngame: "§cPlease run this command ingame!"
+    noPermission: "§cYou don't have the permission to use this command!"
+    wait: "§cYou have to wait §e{hours} hours, {minutes} minutes and {seconds} seconds §cuntil you can claim your rewards again."
+    success: "§aYou got your daily reward!"
+    streak: "§aYou now have a reward streak of §e{streak}§a."
+...

@@ -1,44 +1,58 @@
 ---
-#GENEREL DATA
+# Don't edit this of you don't know what you're doing
+config-version: 4.0
 
+# In which data provider the user data should be stored. If you don't know what that means, don't edit this
+data_storage: "JSON" # Providers: JSON, YAML
 
-#Don't edit the config version!
-config_version: 3.0
+# Multiple permission groups can be set up to allow certain players to get other rewards than normal players
+# If a player has the permission for multiple permission groups, the first group in the list will be their permission group
+# 'default' is the default permission group
+permission_groups:
+ - vip # players need the permission rewards.permissions.vip to get the rewards from this group
 
-# The time how long the players have to wait befor claiming their rewards again
-# Please use minutes
-# 1440 minutes is one day
-wait_time: 1440
+# Reward streaks are strikes when you claim your reward multiple times in a row
+# Strikes start at 1 when you claim your reward 2 times in the timespan of waiting_time * 3
+# E.g. when you have to wait 1 day, you can wait up to 48 hours after you claimed your reward to claim it again to start a streak
+reward_streaks: true # false to disable this feature
 
-# These are the commands wich will be executed if the players get their rewards
-# The commands will be executed trought the console
-# {player} is the player who claimed his reward, {asplayer} to run the command as the sender
-# IMPORTANT: Use \" instead of normal quotess
+# The time how long the players have to wait before claiming their rewards again
+# The time is in seconds
+# 86400 seconds is one day
+# Each permissions group has it's own waiting time
+wait_time:
+ default: 86400
+ vip: 43200
+
+# These are the commands which will be executed if the players get their rewards
+# The commands will be executed trough the console
+# {player} is the player who claimed his reward, {asplayer} to run the command as the player
+# IMPORTANT: Use \" instead of normal quotes
+# Each permissions group has it's own commands
+# You can set up rewards for different streaks
+# The default strike is 0
+# Don't forget to setup 'max', which is the highest possible streak
+# A missing streak reward will be replaced with the max reward
 commands:
- - msg {player} You got your reward!
- - "give {player} diamond 1  {display:{Name:\"§r§l§4Reward\"}}"
+ default:
+  0:
+   - "msg {player} You got your reward!"
+   - "give {player} diamond 1 {display:{Name:\"§r§l§4Reward\"}}"
+  max:
+   - "msg {player} You got your reward!"
+   - "give {player} diamond 2 {display:{Name:\"§r§l§4Reward\"}}"
+ vip:
+  0:
+   - "msg {player} You got a vip reward!"
+   - "give {player} diamond 1 {display:{Name:\"§r§1§4VIP Reward\"}}"
+  max:
+   - "msg {player} You got a vip reward!"
+   - "give {player} diamond 2 {display:{Name:\"§r§1§4VIP Reward\"}}"
 
-
-# COMMAND
-# For help with the command configuration ask me on discord. xD
-command: "reward"
-description: "Claim your reward"
-usage: "reward"
-aliases: ["claimreward"]
-
-
-#MESSAGES
-
-
-# This is the message wich appears when you don't have the permission to use /reward
-no_permission: "§cYou don't have the permission to use /reward"
-
-# This is the message wich appears when you try to do "/reward" trough the console
-run_ingame: "§cPlease run this command in-game"
-
-# This is the message wich appears when you have to wait until you can claim you're reward again
-already_got_reward: "§cYou already got your reward today! You have to wait §e{hours} hours, {minutes} minutes, and {seconds} seconds§c!"
-
-# This is the message wich appears when you got you're reward
-got_reward_succes: "§aYou succesfully got your reward!"
+# The /reward command
+command:
+ command: "reward"
+ description: "Claim your daily rewards"
+ usage: "/reward"
+ aliases: ["rewards", "claimreward"]
 ...
