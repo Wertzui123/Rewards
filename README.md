@@ -29,6 +29,7 @@ rewards.waiting.bypass | Allows you to bypass the waiting time
   <br>-Multiple data storage providers
   
 # Support
+Take a look at <a href="https://github.com/Wertzui123/Rewards/wiki">the Rewards wiki</a>. 
 You can contact me in <a href="https://discord.gg/eGhZGtF">my discord server</a> or <a href="https://github.com/Wertzui123/Rewards/issues/new">create an issue</a>.
 
 # License and Copyright
