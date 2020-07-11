@@ -11,7 +11,7 @@ data_storage: "JSON" # Providers: JSON, YAML
 permission_groups:
  - vip # players need the permission rewards.permissions.vip to get the rewards from this group
 
-# Reward streaks are strikes when you claim your reward multiple times in a row
+# Reward streaks are streakes when you claim your reward multiple times in a row
 # Streaks start at 1 when you claim your reward 2 times in the timespan of waiting_time * 2
 # E.g. when you have to wait 1 day, you can wait up to 48 hours after you claimed your reward to claim it again to start a streak
 reward_streaks: true # false to disable this feature
