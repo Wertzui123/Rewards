@@ -36,17 +36,13 @@ wait_time:
 commands:
  default:
   0:
-   - "msg {player} You got your reward!"
    - "give {player} diamond 1 {display:{Name:\"§r§l§4Reward\"}}"
   max:
-   - "msg {player} You got your reward!"
    - "give {player} diamond 2 {display:{Name:\"§r§l§4Reward\"}}"
  vip:
   0:
-   - "msg {player} You got a vip reward!"
    - "give {player} diamond 1 {display:{Name:\"§r§1§4VIP Reward\"}}"
   max:
-   - "msg {player} You got a vip reward!"
    - "give {player} diamond 2 {display:{Name:\"§r§1§4VIP Reward\"}}"
 
 # The /reward command
