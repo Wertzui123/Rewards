@@ -1,6 +1,6 @@
 # Rewards
 **This branch is outdated and useless!**
-<a href="https://poggit.pmmp.io/p/Rewards"><img src="https://poggit.pmmp.io/shield.state/Rewards"></a>
+<br><a href="https://poggit.pmmp.io/p/Rewards"><img src="https://poggit.pmmp.io/shield.state/Rewards"></a>
 <a href="https://poggit.pmmp.io/p/Rewards"><img src="https://poggit.pmmp.io/shield.api/Rewards"></a>
 A (daily) reward plugin for pmmp servers.
 The .phar can be found on <a href="https://poggit.pmmp.io/p/Rewards">poggit.</a>
