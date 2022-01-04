@@ -15,9 +15,10 @@ class EventListener implements Listener
         $this->plugin = $plugin;
     }
 
-    public function onJoin(PlayerJoinEvent $event){
-        if(!$this->plugin->playerDataFile->exists(strtolower($event->getPlayer()->getName()))){
-            $this->plugin->playerDataFile->set(strtolower($event->getPlayer()->getName()), ["last" => time(), "streak" => 0]);
+    public function onJoin(PlayerJoinEvent $event)
+    {
+        if (!$this->plugin->playerDataFile->exists(strtolower($event->getPlayer()->getName()))) {
+            $this->plugin->playerDataFile->set(strtolower($event->getPlayer()->getName()), ['last' => 0, 'streak' => 0]);
         }
     }
 

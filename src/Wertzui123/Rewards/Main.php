@@ -6,41 +6,44 @@ namespace Wertzui123\Rewards;
 
 use pocketmine\permission\Permission;
 use pocketmine\permission\PermissionManager;
-use pocketmine\Player;
+use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use Wertzui123\Rewards\commands\reward;
 
-class Main extends PluginBase{
+class Main extends PluginBase
+{
 
     /** @var float */
-    const CONFIG_VERSION = 4.0;
+    const CONFIG_VERSION = 5.0;
 
     /** @var Config */
     public $messagesFile;
     /** @var Config */
     public $playerDataFile;
 
-	public function onEnable() : void{
+    public function onEnable(): void
+    {
         $this->ConfigUpdater();
         $this->messagesFile = new Config($this->getDataFolder() . 'messages.yml', Config::YAML);
         $this->playerDataFile = $this->loadDataFile();
-        foreach ($this->getConfig()->get('permission_groups') as $group){
-            PermissionManager::getInstance()->addPermission(new Permission("rewards.permissions." . $group, "Rewards permission group", Permission::DEFAULT_FALSE));
+        foreach ($this->getConfig()->get('permission_groups') as $group) {
+            PermissionManager::getInstance()->addPermission(new Permission('rewards.permissions.' . $group, 'Rewards permission group'));
         }
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
-        $this->getServer()->getCommandMap()->register("Rewards", new reward($this));
-	}
+        $this->getServer()->getCommandMap()->register('Rewards', new reward($this));
+    }
 
     /**
      * Loads the user data file
      * @return Config|null
      */
-	private function loadDataFile(){
-	    switch (strtolower($this->getConfig()->get("data_storage", "JSON"))){
-            case "json":
+    private function loadDataFile()
+    {
+        switch (strtolower($this->getConfig()->get('data_storage', 'JSON'))) {
+            case 'json':
                 return new Config($this->getDataFolder() . 'playerData.json', Config::JSON);
-            case "yaml":
+            case 'yaml':
                 return new Config($this->getDataFolder() . 'playerData.yml', Config::YAML);
             default:
                 $this->getLogger()->warning("Invalid data_storage value. Using JSON.");
@@ -54,8 +57,9 @@ class Main extends PluginBase{
      * @param array $replace [optional]
      * @return string
      */
-    public function getMessage($key, $replace = []){
-	    return str_replace(array_keys($replace), $replace, $this->messagesFile->getNested($key));
+    public function getMessage($key, $replace = [])
+    {
+        return str_replace(array_keys($replace), $replace, $this->messagesFile->getNested($key));
     }
 
     /**
@@ -64,8 +68,9 @@ class Main extends PluginBase{
      * @param Player $player
      * @return int
      */
-    public function getWaitTime(Player $player){
-        return $this->playerDataFile->get(strtolower($player->getName()), ["last" => time(), "streak" => 0])["last"] + $this->getConfig()->getNested('wait_time.' . $this->getPermissionGroup($player));
+    public function getWaitTime(Player $player)
+    {
+        return $this->playerDataFile->get(strtolower($player->getName()), ['last' => 0, 'streak' => 0])['last'] + $this->getConfig()->getNested('wait_time.' . $this->getPermissionGroup($player));
     }
 
     /**
@@ -74,8 +79,9 @@ class Main extends PluginBase{
      * @param Player $player
      * @return int
      */
-    public function getStreak(Player $player){
-        return $this->playerDataFile->get(strtolower($player->getName()), ["last" => time(), "streak" => 0])["streak"];
+    public function getStreak(Player $player)
+    {
+        return $this->playerDataFile->get(strtolower($player->getName()), ['last' => 0, 'streak' => 0])['streak'];
     }
 
     /**
@@ -84,13 +90,14 @@ class Main extends PluginBase{
      * @param Player $player
      * @return string
      */
-    public function getPermissionGroup(Player $player){
-        foreach ($this->getConfig()->get('permission_groups') as $group){
-            if($player->hasPermission("rewards.permissions." . $group)){
+    public function getPermissionGroup(Player $player)
+    {
+        foreach ($this->getConfig()->get('permission_groups') as $group) {
+            if ($player->hasPermission('rewards.permissions.' . $group)) {
                 return $group;
             }
         }
-        return "default";
+        return 'default';
     }
 
     /**
@@ -98,7 +105,7 @@ class Main extends PluginBase{
      */
     private function ConfigUpdater()
     {
-        if (!file_exists($this->getDataFolder() . "config.yml")) {
+        if (!file_exists($this->getDataFolder() . 'config.yml')) {
             $this->saveResource('config.yml');
             $this->saveResource('messages.yml');
             return;
@@ -106,10 +113,10 @@ class Main extends PluginBase{
         if ($this->getConfig()->get('config-version') !== self::CONFIG_VERSION) {
             $config_version = $this->getConfig()->get('config-version');
             $this->getLogger()->info("Your Config isn't the latest. Rewards renamed your old config to §bconfig-" . $config_version . ".yml §6and created a new config. Have fun!");
-            rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "config-" . $config_version . ".yml");
-            rename($this->getDataFolder() . "messages.yml", $this->getDataFolder() . "messages-" . $config_version . ".yml");
-            $this->saveResource("config.yml");
-            $this->saveResource("messages.yml");
+            rename($this->getDataFolder() . 'config.yml', $this->getDataFolder() . 'config-' . $config_version . '.yml');
+            rename($this->getDataFolder() . 'messages.yml', $this->getDataFolder() . 'messages-' . $config_version . '.yml');
+            $this->saveResource('config.yml');
+            $this->saveResource('messages.yml');
         }
     }
 
@@ -119,14 +126,15 @@ class Main extends PluginBase{
      * @param string $message
      * @return string
      */
-    public function ConvertSeconds($seconds, $message){
+    public function ConvertSeconds($seconds, $message)
+    {
         $hours = floor($seconds / 3600);
         $minutes = floor(($seconds / 60) % 60);
         $seconds = $seconds % 60;
-        return str_replace(["{hours}", "{minutes}", "{seconds}"], [$hours, $minutes, $seconds], $message);
+        return str_replace(['{hours}', '{minutes}', '{seconds}'], [$hours, $minutes, $seconds], $message);
     }
 
-    public function onDisable()
+    public function onDisable(): void
     {
         $this->playerDataFile->save();
     }

@@ -1,6 +1,6 @@
 ---
 # Don't edit this if you don't know what you're doing
-config-version: 4.1
+config-version: 5.0
 
 # In which data provider the user data should be stored. If you don't know what that means, don't edit this
 data_storage: "JSON" # Providers: JSON, YAML
@@ -19,19 +19,19 @@ reward_streaks: true # false to disable this feature
 # The time how long the players have to wait before claiming their rewards again
 # The time is in seconds
 # 86400 seconds is one day
-# Each permissions group has its own waiting time
+# Each permission group has its own waiting time
 wait_time:
  default: 86400
  vip: 43200
 
 # These are the commands which will be executed if the players get their rewards
-# The commands will be executed trough the console
+# The commands will be executed through the console
 # {player} is the player who claimed his reward, {asplayer} to run the command as the player
 # IMPORTANT: Use \" instead of normal quotes
-# Each permissions group has it's own commands
+# Each permission group has its own commands
 # You can set up rewards for different streaks
 # The default strike is 0
-# Don't forget to setup 'max', which is the highest possible streak
+# Don't forget to set up 'max', which is the highest possible streak
 # A missing streak reward will be replaced with the max reward
 commands:
  default:

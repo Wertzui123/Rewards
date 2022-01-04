@@ -3,11 +3,13 @@
 namespace Wertzui123\Rewards\events;
 
 use pocketmine\event\Cancellable;
+use pocketmine\event\CancellableTrait;
 use pocketmine\event\player\PlayerEvent;
-use pocketmine\Player;
+use pocketmine\player\Player;
 
 class RewardClaimEvent extends PlayerEvent implements Cancellable
 {
+    use CancellableTrait;
 
     /** @var string[] */
     private $commands;
@@ -31,7 +33,8 @@ class RewardClaimEvent extends PlayerEvent implements Cancellable
      * Returns the commands to execute
      * @return string[]
      */
-    public function getCommands(){
+    public function getCommands()
+    {
         return $this->commands;
     }
 
@@ -39,7 +42,8 @@ class RewardClaimEvent extends PlayerEvent implements Cancellable
      * Updates the commands to execute
      * @param string[] $commands
      */
-    public function setCommands(array $commands){
+    public function setCommands(array $commands)
+    {
         $this->commands = $commands;
     }
 
@@ -47,7 +51,8 @@ class RewardClaimEvent extends PlayerEvent implements Cancellable
      * Returns the reward streak of the player
      * @return int
      */
-    public function getStreak(){
+    public function getStreak()
+    {
         return $this->streak;
     }
 
