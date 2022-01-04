@@ -8,11 +8,11 @@
 **/reward:**
 <br>Command to claim your reward
 <br>Can be edited in the config.yml
-<br>Permission: rewards.cmd.reward
+<br>Permission: rewards.command.reward
 
 # Permissions
 ## Commands
-rewards.cmd.reward | Permission for /reward
+rewards.command.reward | Permission for /reward
 <br>Default: true
 ## Other
 rewards.waiting.bypass | Allows you to bypass the waiting time
