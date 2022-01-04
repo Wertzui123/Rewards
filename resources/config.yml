@@ -1,6 +1,6 @@
 ---
 # Don't edit this if you don't know what you're doing
-config-version: 4.0
+config-version: 4.1
 
 # In which data provider the user data should be stored. If you don't know what that means, don't edit this
 data_storage: "JSON" # Providers: JSON, YAML
@@ -11,15 +11,15 @@ data_storage: "JSON" # Providers: JSON, YAML
 permission_groups:
  - vip # players need the permission rewards.permissions.vip to get the rewards from this group
 
-# Reward streaks are streakes when you claim your reward multiple times in a row
-# Streaks start at 1 when you claim your reward 2 times in the timespan of waiting_time * 2
+# Reward streaks are strikes when you claim your reward multiple times in a row
+# Strikes start at 1 when you claim your reward 2 times in the timespan of waiting_time * 3
 # E.g. when you have to wait 1 day, you can wait up to 48 hours after you claimed your reward to claim it again to start a streak
 reward_streaks: true # false to disable this feature
 
 # The time how long the players have to wait before claiming their rewards again
 # The time is in seconds
 # 86400 seconds is one day
-# Each permissions group has it's own waiting time
+# Each permissions group has its own waiting time
 wait_time:
  default: 86400
  vip: 43200
@@ -35,12 +35,12 @@ wait_time:
 # A missing streak reward will be replaced with the max reward
 commands:
  default:
-  0:
+  1:
    - "give {player} diamond 1 {display:{Name:\"§r§l§4Reward\"}}"
   max:
    - "give {player} diamond 2 {display:{Name:\"§r§l§4Reward\"}}"
  vip:
-  0:
+  1:
    - "give {player} diamond 1 {display:{Name:\"§r§1§4VIP Reward\"}}"
   max:
    - "give {player} diamond 2 {display:{Name:\"§r§1§4VIP Reward\"}}"

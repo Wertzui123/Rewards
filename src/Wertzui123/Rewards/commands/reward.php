@@ -42,14 +42,14 @@ class reward extends Command implements PluginIdentifiableCommand
         $streak = $this->plugin->getStreak($sender);
         $streakUp = false;
         if($this->plugin->getConfig()->get('reward_streaks') && time() < ($this->plugin->playerDataFile->get(strtolower($sender->getName()))["last"] + ($this->plugin->getConfig()->getNested('wait_time.' . $this->plugin->getPermissionGroup($sender)) * 2))){
-            $streak += 1;
+            $streak++;
             if($streak > 1){
                 $streakUp = true;
             }
         }else{
             $streak = 0;
         }
-        $event = new RewardClaimEvent($sender, $this->plugin->getConfig()->getNested("commands." . $this->plugin->getPermissionGroup($sender) . "." . $streak, $this->plugin->getConfig()->getNested("commands." . $this->plugin->getPermissionGroup($sender) . '.max')), $streak);
+        $event = new RewardClaimEvent($sender, $this->plugin->getConfig()->getNested("commands." . $this->plugin->getPermissionGroup($sender) . "." . ($streak + 1), $this->plugin->getConfig()->getNested("commands." . $this->plugin->getPermissionGroup($sender) . '.max')), $streak);
         $event->call();
         if($event->isCancelled()) return;
         $sender->sendMessage($this->plugin->getMessage('cmd.reward.success'));
