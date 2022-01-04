@@ -19,14 +19,14 @@ rewards.waiting.bypass | Allows you to bypass the waiting time
 <br>Default: op
 
 # Features
-  Main Rewards features:
-  * Nearly everything can be adjusted in the configs
-  * Rewards can be only claimed after a waiting time or with the bypass permission
-  * Multiple commands to run on /reward
-  * Config updater
-  * Multiple permission groups
-  * Reward streaks
-  * Multiple data storage providers
+Main Rewards features:
+* Nearly everything can be adjusted in the configs
+* Rewards can be only claimed after a waiting time or with the bypass permission
+* Multiple commands to run on /reward
+* Config updater
+* Multiple permission groups
+* Reward streaks
+* Multiple data storage providers
   
 # Support
 You can contact me in <a href="https://discord.gg/eGhZGtF">my discord server</a> or <a href="https://github.com/Wertzui123/Rewards/issues/new">create an issue</a>.
