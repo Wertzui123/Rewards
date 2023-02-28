@@ -129,7 +129,7 @@ class Main extends PluginBase
     public function ConvertSeconds($seconds, $message)
     {
         $hours = floor($seconds / 3600);
-        $minutes = floor(($seconds / 60) % 60);
+        $minutes = floor(floor($seconds / 60) % 60);
         $seconds = $seconds % 60;
         return str_replace(['{hours}', '{minutes}', '{seconds}'], [$hours, $minutes, $seconds], $message);
     }
