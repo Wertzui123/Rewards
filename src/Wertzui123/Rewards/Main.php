@@ -9,7 +9,7 @@ use pocketmine\permission\PermissionManager;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
-use Wertzui123\Rewards\commands\reward;
+use Wertzui123\Rewards\commands\RewardCommand;
 
 class Main extends PluginBase
 {
@@ -24,19 +24,19 @@ class Main extends PluginBase
 
     public function onEnable(): void
     {
-        $this->ConfigUpdater();
+        $this->updateConfig();
         $this->messagesFile = new Config($this->getDataFolder() . 'messages.yml', Config::YAML);
         $this->playerDataFile = $this->loadDataFile();
         foreach ($this->getConfig()->get('permission_groups') as $group) {
             PermissionManager::getInstance()->addPermission(new Permission('rewards.permissions.' . $group, 'Rewards permission group'));
         }
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
-        $this->getServer()->getCommandMap()->register('Rewards', new reward($this));
+        $this->getServer()->getCommandMap()->register('Rewards', new RewardCommand($this));
     }
 
     /**
      * Loads the user data file
-     * @return Config|null
+     * @return Config
      */
     private function loadDataFile()
     {
@@ -103,7 +103,7 @@ class Main extends PluginBase
     /**
      * Checks whether the config version is the latest and updates it if it isn't
      */
-    private function ConfigUpdater()
+    private function updateConfig()
     {
         if (!file_exists($this->getDataFolder() . 'config.yml')) {
             $this->saveResource('config.yml');
@@ -126,7 +126,7 @@ class Main extends PluginBase
      * @param string $message
      * @return string
      */
-    public function ConvertSeconds($seconds, $message)
+    public function convertSeconds($seconds, $message)
     {
         $hours = floor($seconds / 3600);
         $minutes = floor(floor($seconds / 60) % 60);

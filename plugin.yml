@@ -1,10 +1,10 @@
 name: Rewards
 main: Wertzui123\Rewards\Main
-version: "5.0"
+version: "5.1"
 api: 4.0.0
 load: POSTWORLD
 author: Wertzui123
-description: Let your players get cooldowned rewards
+description: Let your players claim cooldowned rewards
 website: https://github.com/Wertzui123/Rewards/
 permissions:
   rewards.command.reward:
