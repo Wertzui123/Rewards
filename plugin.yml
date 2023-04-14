@@ -1,7 +1,7 @@
 name: Rewards
 main: Wertzui123\Rewards\Main
-version: "5.1"
-api: 4.0.0
+version: "5.2"
+api: 5.0.0
 load: POSTWORLD
 author: Wertzui123
 description: Let your players claim cooldowned rewards
