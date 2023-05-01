@@ -1,6 +1,6 @@
 name: Rewards
 main: Wertzui123\Rewards\Main
-version: "5.2"
+version: "5.2.1"
 api: 5.0.0
 load: POSTWORLD
 author: Wertzui123

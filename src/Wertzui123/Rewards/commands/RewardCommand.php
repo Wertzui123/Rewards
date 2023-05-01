@@ -22,6 +22,7 @@ class RewardCommand extends Command implements PluginOwned
     {
         parent::__construct($plugin->getConfig()->getNested('command.command'), $plugin->getConfig()->getNested('command.description'), $plugin->getConfig()->getNested('command.usage'), $plugin->getConfig()->getNested('command.aliases'));
         $this->setPermissions(['rewards.command.reward']);
+        $this->setPermissionMessage($plugin->getMessage('command.reward.noPermission'));
         $this->plugin = $plugin;
     }
 
@@ -29,10 +30,6 @@ class RewardCommand extends Command implements PluginOwned
     {
         if (!$sender instanceof Player) {
             $sender->sendMessage($this->plugin->getMessage('command.reward.runIngame'));
-            return;
-        }
-        if (!$sender->hasPermission($this->getPermissions()[0])) {
-            $sender->sendMessage($this->plugin->getMessage('command.reward.noPermission'));
             return;
         }
         if (time() < $this->plugin->getWaitTime($sender) && !$sender->hasPermission('rewards.waiting.bypass')) {
